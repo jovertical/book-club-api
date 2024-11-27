@@ -1,13 +1,30 @@
 import fastify from 'fastify';
 
-const server = fastify();
-
+const environment = process.env.NODE_ENV || 'development';
 const host = process.env.APP_HOST || '0.0.0.0';
 const port = Number(process.env.APP_PORT) || 8080;
 
+const envToLogger = {
+  development: {
+    transport: {
+      target: 'pino-pretty',
+      options: {
+        translateTime: 'HH:MM:ss Z',
+        ignore: 'pid,hostname',
+      },
+    },
+  },
+  production: true,
+  test: false,
+};
+
+const server = fastify({
+  logger: envToLogger[environment] ?? true,
+});
+
 server.get('/', async (request, reply) => {
   return {
-    message: 'Ok',
+    message: 'Welcome to the Book Club API',
   };
 });
 
