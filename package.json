@@ -1,0 +1,25 @@
+{
+  "name": "book-club-api",
+  "version": "0.1.0",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "node --import=tsx --env-file=.env.local --watch src/app.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/app.js"
+  },
+  "keywords": [],
+  "author": "Jovert Palonpon <jovertical.dev@gmail.com>",
+  "license": "MIT",
+  "description": "",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "fastify": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
