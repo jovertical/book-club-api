@@ -1,20 +1,15 @@
 {
   "compilerOptions": {
-    "lib": ["es2020"],
-    "module": "commonjs",
-    "target": "es2020",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "incremental": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "strict": true,
     "noImplicitAny": false,
-    "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "paths": {},
-    "types": ["node"]
+    "outDir": "dist",
+    "declaration": true,
+    "experimentalDecorators": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "coverage"]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
