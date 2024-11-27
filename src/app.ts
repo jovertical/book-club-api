@@ -1,38 +1,18 @@
-import fastify from 'fastify';
+import autoLoad from '@fastify/autoload';
+import fastify, { FastifyServerOptions } from 'fastify';
+import path from 'node:path';
+import { fileURLToPath } from 'url';
 
-const environment = process.env.NODE_ENV || 'development';
-const host = process.env.APP_HOST || '0.0.0.0';
-const port = Number(process.env.APP_PORT) || 8080;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const envToLogger = {
-  development: {
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        translateTime: 'HH:MM:ss Z',
-        ignore: 'pid,hostname',
-      },
-    },
-  },
-  production: true,
-  test: false,
+export default async (opts: FastifyServerOptions) => {
+  const app = fastify(opts);
+
+  app.register(autoLoad, {
+    dir: path.join(__dirname, 'routes'),
+    forceESM: true,
+  });
+
+  return app;
 };
-
-const server = fastify({
-  logger: envToLogger[environment] ?? true,
-});
-
-server.get('/', async (request, reply) => {
-  return {
-    message: 'Welcome to the Book Club API',
-  };
-});
-
-server.listen({ host, port }, (err, address) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-
-  console.log(`Server listening at ${address}`);
-});

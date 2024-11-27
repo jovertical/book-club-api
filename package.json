@@ -1,11 +1,12 @@
 {
   "name": "book-club-api",
   "version": "0.1.0",
-  "main": "dist/app.js",
+  "main": "dist/server.js",
+  "type": "module",
   "scripts": {
-    "dev": "node --import=tsx --env-file=.env --watch src/app.ts",
+    "dev": "node --loader ts-node/esm --env-file=.env --watch src/server.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/app.js"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "Jovert Palonpon <jovertical.dev@gmail.com>",
@@ -15,6 +16,7 @@
     "node": ">=22"
   },
   "dependencies": {
+    "@fastify/autoload": "^6.0.2",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.4",
     "fastify": "^5.1.0",
@@ -25,7 +27,7 @@
     "@types/pg": "^8.11.10",
     "drizzle-kit": "^0.28.1",
     "pino-pretty": "^13.0.0",
-    "tsx": "^4.19.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   }
 }
