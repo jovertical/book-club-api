@@ -6,8 +6,8 @@ This is an API powering the book club app.
 
 ### Prerequisites
 
-- ⚡ Node.js 22.x
-- 🐳 Docker
+- Node.js 22.x
+- Docker
 
 ### Installing
 
@@ -27,10 +27,10 @@ docker exec -it book_club_api ./node_modules/.bin/drizzle-kit push
 
 You can view the database schema by visiting [Drizzle Studio](https://orm.drizzle.team/docs/drizzle-kit-studio) locally: https://local.drizzle.studio/?port=8081&host=127.0.0.1
 
-## 🧪 Running the tests
+## Testing
 
 Run `npm test`
 
-## 🌍 Deployment
+## Deployment
 
 TBD
