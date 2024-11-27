@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: book_club_postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - app
+    labels:
+      com.bookclub.service: 'database'
+      com.bookclub.version: '1.0'
+      com.bookclub.description: 'PostgreSQL database for the application'
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: book_club_api
+    ports:
+      - '8080:8080'
+    env_file:
+      - .env.local
+    volumes:
+      - .:/app:cached # Use the cached option for performance
+      - /app/node_modules # Avoid overwriting dependencies
+    networks:
+      - app
+    labels:
+      com.bookclub.service: 'api'
+      com.bookclub.version: '1.0'
+      com.bookclub.description: 'Backend API service'
+
+volumes:
+  pg_data:
+    driver: local
+    labels:
+      com.bookclub.volume: 'postgres_data'
+      com.bookclub.description: 'Persistent storage for PostgreSQL'
+
+networks:
+  app:
+    driver: bridge
+    labels:
+      com.bookclub.network: 'app_network'
+      com.bookclub.description: 'Network connecting all app services'
