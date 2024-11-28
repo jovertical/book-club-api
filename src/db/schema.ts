@@ -1,13 +1,13 @@
 import { relations } from 'drizzle-orm';
 import {
   integer,
-  pgTable,
+  pgTable as table,
   varchar,
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
 
-export const books = pgTable('books', {
+export const books = table('books', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   authorId: integer('author_id'),
   title: varchar({ length: 255 }).notNull(),
@@ -16,7 +16,7 @@ export const books = pgTable('books', {
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });
 
-export const authors = pgTable('authors', {
+export const authors = table('authors', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
   bio: text('bio'),

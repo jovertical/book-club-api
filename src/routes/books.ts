@@ -1,4 +1,4 @@
-import { books as schema } from '@/db/schema/public.js';
+import { books as schema } from '@/db/schema.js';
 import { FastifyPluginAsync } from 'fastify';
 
 const books: FastifyPluginAsync = async (server) => {

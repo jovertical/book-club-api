@@ -38,6 +38,7 @@ export default tseslint.config(
       '/.git',
       '/.husky',
       '/.yarn',
+      'drizzle.config.ts',
       'eslint.config.mjs',
     ],
   },

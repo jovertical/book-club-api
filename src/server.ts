@@ -1,24 +1,39 @@
 import { createApp } from '@/app.js';
+import GracefulServer from '@gquittet/graceful-server';
 
-process.on('unhandledRejection', (error) => {
-  console.error(error);
-  // process.exit(1);
+const fastify = await createApp({
+  logger: {
+    level: 'info',
+    redact: ['req.headers.authorization'],
+  },
 });
 
-const server = await createApp({ logger: true });
+const gracefulServer = GracefulServer(fastify.server, {
+  closePromises: [], // e.g. close database connection
+});
 
-const host = server.config.APP_HOST;
-const port = +server.config.APP_PORT;
+gracefulServer.on(GracefulServer.READY, () => {
+  fastify.log.info('Server is ready');
+});
 
-await server.listen({ host, port });
+gracefulServer.on(GracefulServer.SHUTTING_DOWN, () => {
+  fastify.log.info('Server is shutting down');
+});
 
-for (const signal of ['SIGINT', 'SIGTERM']) {
-  process.on(signal, () =>
-    server.close().then((error) => {
-      server.log.warn(`close application on ${signal}`, error);
+gracefulServer.on(GracefulServer.SHUTDOWN, (error) => {
+  fastify.log.info('Server is down', error.message);
+});
 
-      // process.exit(err ? 1 : 0);
-      return 0;
-    }),
-  );
+try {
+  await fastify.listen({
+    host: fastify.config.APP_HOST,
+    port: +fastify.config.APP_PORT,
+  });
+
+  gracefulServer.setReady();
+} catch (error) {
+  fastify.log.error(error);
+
+  // eslint-disable-next-line n/no-process-exit,unicorn/no-process-exit
+  process.exit(1);
 }
