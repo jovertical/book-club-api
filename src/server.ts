@@ -1,33 +1,23 @@
 import buildApp from './app.js';
 
-const environment = process.env.NODE_ENV || 'development';
-const host = process.env.APP_HOST || '0.0.0.0';
-const port = Number(process.env.APP_PORT) || 8080;
-
-const envToLogger = {
-  development: {
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        translateTime: 'HH:MM:ss Z',
-        ignore: 'pid,hostname',
-      },
-    },
-  },
-  production: true,
-  test: false,
-};
-
-const server = await buildApp({
-  logger: envToLogger[environment] ?? true,
+process.on('unhandledRejection', (err) => {
+  console.error(err);
+  process.exit(1);
 });
 
-server.listen({ host, port }, (err, address) => {
-  if (err) {
-    server.log.error(err);
+const server = await buildApp({ logger: true });
 
-    process.exit(1);
-  }
+const host = server.config.APP_HOST;
+const port = +server.config.APP_PORT;
 
-  server.log.info(`Server listening at ${address}`);
-});
+await server.listen({ host, port });
+
+for (const signal of ['SIGINT', 'SIGTERM']) {
+  process.on(signal, () =>
+    server.close().then((err) => {
+      server.log.warn(`close application on ${signal}`);
+
+      process.exit(err ? 1 : 0);
+    }),
+  );
+}
