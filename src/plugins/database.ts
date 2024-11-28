@@ -3,10 +3,10 @@ import type { NodePgDatabase, NodePgClient } from 'drizzle-orm/node-postgres';
 import { FastifyPluginAsync } from 'fastify';
 import fp from 'fastify-plugin';
 
-const dbPlugin: FastifyPluginAsync = async (server) => {
-  const db = drizzle(server.config.DATABASE_URL);
+const databasePlugin: FastifyPluginAsync = async (server) => {
+  const database = drizzle(server.config.DATABASE_URL);
 
-  server.decorate('db', db);
+  server.decorate('db', database);
 };
 
 declare module 'fastify' {
@@ -17,4 +17,4 @@ declare module 'fastify' {
   }
 }
 
-export default fp(dbPlugin);
+export default fp(databasePlugin);

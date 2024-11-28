@@ -7,14 +7,6 @@ import {
   timestamp,
 } from 'drizzle-orm/pg-core';
 
-export const users = pgTable('users', {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  name: varchar({ length: 255 }).notNull(),
-  email: varchar({ length: 255 }).notNull().unique(),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
-});
-
 export const books = pgTable('books', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   authorId: integer('author_id'),

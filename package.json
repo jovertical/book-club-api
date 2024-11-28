@@ -6,7 +6,14 @@
   "scripts": {
     "dev": "node --loader ts-node/esm --env-file=.env --watch src/server.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "prettier": "prettier \"{src,test}/**/*.{ts,json}\"",
+    "test:types": "tsc --noEmit -p tsconfig-testing.json",
+    "test:format": "npm run prettier -- --check",
+    "test:lint": "eslint \"{src,test}/**/*.{ts,json}\"",
+    "test:lint:fix": "npm run test:lint -- --fix",
+    "test:unit": "",
+    "test": "npm run test:types && npm run test:format && npm run test:lint && npm run test:unit"
   },
   "keywords": [],
   "author": "Jovert Palonpon <jovertical.dev@gmail.com>",
@@ -27,10 +34,22 @@
     "pg": "^8.13.1"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.2.3",
+    "@eslint/js": "^9.15.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@tsconfig/node22": "^22.0.0",
+    "@types/eslint-config-prettier": "^6.11.3",
     "@types/node": "^22.10.0",
     "@types/pg": "^8.11.10",
     "drizzle-kit": "^0.28.1",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-n": "^17.14.0",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-unicorn": "^56.0.1",
+    "prettier": "^3.4.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.16.0"
   }
 }

@@ -1,13 +1,12 @@
+import { NodeEnvironment } from '@/types/index.js';
 import { Static, Type } from '@sinclair/typebox';
 import { Ajv } from 'ajv';
 import 'dotenv/config';
 import { FastifyPluginAsync } from 'fastify';
 import fp from 'fastify-plugin';
 
-import { NodeEnv } from '../types/index.js';
-
 const ConfigSchema = Type.Object({
-  NODE_ENV: Type.Enum(NodeEnv),
+  NODE_ENV: Type.Enum(NodeEnvironment),
   APP_HOST: Type.String(),
   APP_PORT: Type.String(),
   DATABASE_URL: Type.String(),
@@ -30,7 +29,7 @@ const configPlugin: FastifyPluginAsync = async (server) => {
   if (!valid) {
     throw new Error(
       '.env file validation failed - ' +
-        JSON.stringify(validate.errors, null, 2),
+        JSON.stringify(validate.errors, undefined, 2),
     );
   }
 
