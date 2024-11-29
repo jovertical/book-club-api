@@ -1,0 +1,145 @@
+openapi: 3.1.0
+info:
+  title: book-club-api
+  description: The Swagger API documentation for the book-club-api project.
+  version: '0.1.0'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    BadRequestError:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Bad Request
+              message:
+                type: string
+                example: Invalid request
+              statusCode:
+                type: number
+                example: 400
+    UnauthorizedError:
+      description: Unauthorized request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Unauthorized
+              message:
+                type: string
+                example: Invalid token
+              statusCode:
+                type: number
+                example: 401
+
+security:
+  - bearerAuth: []
+
+paths:
+  /:
+    get:
+      summary: Health check
+      description: Health check endpoint
+      tags:
+        - Health Check
+      responses:
+        200:
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Welcome to the Book Club API
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+  /auth/login:
+    post:
+      summary: User login
+      description: Login to the system
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: mocked-jwt-token
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+  /books:
+    get:
+      summary: List all books
+      description: Fetch a list of books from the system
+      tags:
+        - Books
+      responses:
+        200:
+          description: A collection of books is fetched
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        title:
+                          type: string
+                        author:
+                          type: string
+                        genre:
+                          type: string
+                        isbn:
+                          type: string
+                        price:
+                          type: number
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        type: number
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'

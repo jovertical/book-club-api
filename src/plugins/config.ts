@@ -10,6 +10,10 @@ const ConfigSchema = Type.Object({
   APP_HOST: Type.String(),
   APP_PORT: Type.String(),
   DATABASE_URL: Type.String(),
+  AUTH0_DOMAIN: Type.String(),
+  AUTH0_CLIENT_ID: Type.String(),
+  AUTH0_CLIENT_SECRET: Type.String(),
+  AUTH0_AUDIENCE: Type.String(),
 });
 
 const ajv = new Ajv({
@@ -22,7 +26,7 @@ const ajv = new Ajv({
 
 export type Config = Static<typeof ConfigSchema>;
 
-const configPlugin: FastifyPluginAsync = async (server) => {
+const configPlugin: FastifyPluginAsync = async (fastify) => {
   const validate = ajv.compile(ConfigSchema);
   const valid = validate(process.env);
 
@@ -33,7 +37,7 @@ const configPlugin: FastifyPluginAsync = async (server) => {
     );
   }
 
-  server.decorate('config', process.env as unknown as Config);
+  fastify.decorate('config', process.env as unknown as Config);
 };
 
 declare module 'fastify' {

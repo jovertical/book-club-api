@@ -4,19 +4,7 @@ const root: FastifyPluginAsync = async (server) => {
   server.get(
     '/',
     {
-      schema: {
-        description: 'Health check endpoint',
-        tags: ['health-check'],
-        response: {
-          200: {
-            description: 'Succesful response',
-            type: 'object',
-            properties: {
-              message: { type: 'string' },
-            },
-          },
-        },
-      },
+      onRequest: [server.authenticate],
     },
     async function () {
       return {

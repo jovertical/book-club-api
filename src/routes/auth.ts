@@ -1,30 +1,17 @@
+import { FastifyTypebox } from '@/types/index.js';
+import { Type } from '@sinclair/typebox';
 import { FastifyPluginAsync } from 'fastify';
 
-const auth: FastifyPluginAsync = async (server) => {
+const auth: FastifyPluginAsync = async (server: FastifyTypebox) => {
   server.post(
     '/auth/login',
     {
+      onRequest: [server.authenticate],
       schema: {
-        description: 'Login via credentials',
-        tags: ['auth'],
-        response: {
-          201: {
-            description: 'An authentication session is created',
-            type: 'object',
-            properties: {
-              data: {
-                token: 'string',
-              },
-            },
-          },
-          401: {
-            description: 'Invalid credentials',
-            type: 'object',
-            properties: {
-              message: { type: 'string' },
-            },
-          },
-        },
+        body: Type.Object({
+          email: Type.String(),
+          password: Type.String(),
+        }),
       },
     },
     async function (_, reply) {
