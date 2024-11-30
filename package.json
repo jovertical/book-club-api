@@ -10,6 +10,7 @@
     "prettier": "prettier \"{src,test}/**/*.{ts,json}\"",
     "test:types": "tsc --noEmit -p tsconfig-testing.json",
     "test:format": "npm run prettier -- --check",
+    "test:format:fix": "npm run prettier -- --write",
     "test:lint": "eslint \"{src,test}/**/*.{ts,json}\"",
     "test:lint:fix": "npm run test:lint -- --fix",
     "test:unit": "",
@@ -32,12 +33,14 @@
     "@gquittet/graceful-server": "^5.2.8",
     "@sinclair/typebox": "^0.33.22",
     "ajv": "^8.17.1",
+    "class-transformer": "^0.5.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.4",
     "fastify": "^5.1.0",
     "fastify-auth0-verify": "^3.0.0",
     "fastify-plugin": "^5.0.1",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.3",

@@ -115,6 +115,24 @@ components:
         author:
           type: object
           $ref: '#/components/schemas/Author'
+        genres:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Genre'
+    Genre:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
 
 security:
   - bearerAuth: []

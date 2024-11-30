@@ -1,6 +1,8 @@
 import { books as table } from '@/db/schema.js';
+import { BookDto } from '@/dtos/book.js';
 import { FastifyTypebox, SortOrder } from '@/types/index.js';
 import { Type } from '@sinclair/typebox';
+import { plainToInstance } from 'class-transformer';
 import { asc, desc } from 'drizzle-orm';
 
 const books = async (server: FastifyTypebox) => {
@@ -37,6 +39,12 @@ const books = async (server: FastifyTypebox) => {
           updatedAt: true,
         },
         with: {
+          author: {
+            columns: {
+              name: true,
+              bio: true,
+            },
+          },
           genres: {
             columns: {
               bookId: true,
@@ -51,12 +59,6 @@ const books = async (server: FastifyTypebox) => {
               },
             },
           },
-          author: {
-            columns: {
-              name: true,
-              bio: true,
-            },
-          },
         },
         orderBy: orderFn(table[sort_by]),
         limit,
@@ -64,7 +66,7 @@ const books = async (server: FastifyTypebox) => {
       });
 
       return {
-        data,
+        data: plainToInstance(BookDto, data),
         meta: {
           page,
           limit,

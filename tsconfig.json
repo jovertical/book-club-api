@@ -5,6 +5,9 @@
       "@/*": ["./src/*"]
     },
     "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,

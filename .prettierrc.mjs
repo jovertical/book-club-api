@@ -12,4 +12,5 @@ export default {
   trailingComma: 'all',
   useTabs: false,
   plugins: ['@trivago/prettier-plugin-sort-imports'],
+  importOrderParserPlugins: ['typescript', 'decorators-legacy'],
 };
