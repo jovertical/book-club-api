@@ -39,10 +39,82 @@ components:
                 example: Unauthorized
               message:
                 type: string
-                example: Invalid token
+                example: Missing Authorization HTTP header.
               statusCode:
                 type: number
                 example: 401
+  parameters:
+    CollectionParams:
+      page:
+        name: page
+        in: query
+        description: The page number to fetch
+        required: false
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        example: 1
+      limit:
+        name: limit
+        in: query
+        description: The number of items per page
+        required: false
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+        example: 10
+      sort_by:
+        name: sort_by
+        in: query
+        description: Field to sort by
+        required: false
+        schema:
+          type: string
+        example: title
+      sort_order:
+        name: sort_order
+        in: query
+        description: Order of sorting (asc for ascending, desc for descending)
+        required: false
+        schema:
+          type: string
+          enum:
+            - asc
+            - desc
+        example: asc
+
+  schemas:
+    Author:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        bio:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    Book:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        info:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        author:
+          type: object
+          $ref: '#/components/schemas/Author'
 
 security:
   - bearerAuth: []
@@ -109,6 +181,11 @@ paths:
       description: Fetch a list of books from the system
       tags:
         - Books
+      parameters:
+        - $ref: '#/components/parameters/CollectionParams/page'
+        - $ref: '#/components/parameters/CollectionParams/limit'
+        - $ref: '#/components/parameters/CollectionParams/sort_by'
+        - $ref: '#/components/parameters/CollectionParams/sort_order'
       responses:
         200:
           description: A collection of books is fetched
@@ -121,22 +198,14 @@ paths:
                     type: array
                     items:
                       type: object
-                      properties:
-                        id:
-                          type: string
-                        title:
-                          type: string
-                        author:
-                          type: string
-                        genre:
-                          type: string
-                        isbn:
-                          type: string
-                        price:
-                          type: number
+                      $ref: '#/components/schemas/Book'
                   meta:
                     type: object
                     properties:
+                      page:
+                        type: number
+                      limit:
+                        type: number
                       total:
                         type: number
         400:

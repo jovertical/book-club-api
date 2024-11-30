@@ -15,6 +15,11 @@ export type FastifyTypebox = FastifyInstance<
   TypeBoxTypeProvider
 >;
 
+export enum SortOrder {
+  asc = 'asc',
+  desc = 'desc',
+}
+
 export enum NodeEnvironment {
   development = 'development',
   test = 'test',
