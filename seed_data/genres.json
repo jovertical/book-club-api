@@ -1,0 +1,154 @@
+[
+  {
+    "name": "Art",
+    "description": "Books focusing on visual arts, painting, sculpture, and art history."
+  },
+  {
+    "name": "Biography",
+    "description": "Books about the life stories of notable individuals."
+  },
+  {
+    "name": "Business",
+    "description": "Books exploring entrepreneurship, management, and corporate strategies."
+  },
+  {
+    "name": "Chick Lit",
+    "description": "Light-hearted fiction targeted towards women, often humorous or romantic."
+  },
+  {
+    "name": "Children's",
+    "description": "Books written for children, including stories, fairytales, and learning material."
+  },
+  {
+    "name": "Christian",
+    "description": "Books based on Christian faith, teachings, and spiritual growth."
+  },
+  {
+    "name": "Classics",
+    "description": "Timeless literature from renowned authors of the past."
+  },
+  {
+    "name": "Comics",
+    "description": "Books composed of comics, including superhero adventures and graphic storytelling."
+  },
+  {
+    "name": "Contemporary",
+    "description": "Modern fiction reflecting current life and culture."
+  },
+  {
+    "name": "Cookbooks",
+    "description": "Books with recipes, cooking techniques, and culinary tips."
+  },
+  {
+    "name": "Crime",
+    "description": "Books revolving around criminal investigations and law enforcement."
+  },
+  {
+    "name": "Fantasy",
+    "description": "Books featuring magical worlds, mythical creatures, and extraordinary adventures."
+  },
+  {
+    "name": "Fiction",
+    "description": "General narrative literature based on imaginative storytelling."
+  },
+  {
+    "name": "Graphic Novels",
+    "description": "Stories told primarily through illustrations and dialogue in a comic book format."
+  },
+  {
+    "name": "Historical Fiction",
+    "description": "Fictional stories set in historical settings, often with real events or figures."
+  },
+  {
+    "name": "History",
+    "description": "Books exploring past events, civilizations, and historical figures."
+  },
+  {
+    "name": "Horror",
+    "description": "Books designed to scare and thrill with supernatural or macabre elements."
+  },
+  {
+    "name": "Humor and Comedy",
+    "description": "Books written to entertain and amuse with humor."
+  },
+  {
+    "name": "Manga",
+    "description": "Japanese graphic novels and comics, covering various themes and names."
+  },
+  {
+    "name": "Memoir",
+    "description": "Personal accounts and life stories written by the authors themselves."
+  },
+  {
+    "name": "Music",
+    "description": "Books about music, musicians, and the art of sound."
+  },
+  {
+    "name": "Mystery",
+    "description": "Books involving suspenseful plots and solving puzzles or crimes."
+  },
+  {
+    "name": "Nonfiction",
+    "description": "Books based on factual information and real events."
+  },
+  {
+    "name": "Paranormal",
+    "description": "Books focusing on supernatural phenomena and creatures."
+  },
+  {
+    "name": "Philosophy",
+    "description": "Books exploring fundamental questions about life, existence, and thought."
+  },
+  {
+    "name": "Poetry",
+    "description": "Collections of poetic works expressing ideas and emotions."
+  },
+  {
+    "name": "Psychology",
+    "description": "Books about the human mind, behavior, and mental processes."
+  },
+  {
+    "name": "Religion",
+    "description": "Books covering various religious beliefs, practices, and spirituality."
+  },
+  {
+    "name": "Romance",
+    "description": "Books focusing on love stories and romantic relationships."
+  },
+  {
+    "name": "Science",
+    "description": "Books exploring scientific topics, discoveries, and theories."
+  },
+  {
+    "name": "Science Fiction",
+    "description": "Books exploring futuristic and speculative concepts like space travel and technology."
+  },
+  {
+    "name": "Self Help",
+    "description": "Books providing guidance on personal growth and improvement."
+  },
+  {
+    "name": "Suspense",
+    "description": "Books creating tension and excitement through unpredictable plots."
+  },
+  {
+    "name": "Spirituality",
+    "description": "Books focusing on spiritual growth, meditation, and inner peace."
+  },
+  {
+    "name": "Sports",
+    "description": "Books about sports, athletes, and the culture of athletics."
+  },
+  {
+    "name": "Thriller",
+    "description": "Books with fast-paced and gripping stories, often involving danger."
+  },
+  {
+    "name": "Travel",
+    "description": "Books exploring journeys, destinations, and travel experiences."
+  },
+  {
+    "name": "Young Adult",
+    "description": "Books written for teenagers and young adults, often featuring coming-of-age themes."
+  }
+]

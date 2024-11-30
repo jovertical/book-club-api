@@ -38,12 +38,13 @@ export default tseslint.config(
       '/.git',
       '/.husky',
       '/.yarn',
+      'seed.ts', // drizzle-seed is only a dev dependency
       'drizzle.config.ts',
       'eslint.config.mjs',
     ],
   },
   {
-    files: ['**/*.ts'],
+    files: ['./(src|test)/**/*.ts'],
     rules: {
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/require-await': 'off',

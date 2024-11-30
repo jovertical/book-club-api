@@ -1,0 +1,98 @@
+[
+  {
+    "author": "James Clear",
+    "title": "Atomic Habits",
+    "info": "An easy & proven way to build good habits & break bad ones.",
+    "genres": ["Self Help", "Psychology", "Nonfiction"]
+  },
+  {
+    "author": "Eric Ries",
+    "title": "The Lean Startup",
+    "info": "How today’s entrepreneurs use continuous innovation.",
+    "genres": ["Business", "Nonfiction", "Self Help"]
+  },
+  {
+    "author": "Yuval Noah Harari",
+    "title": "Sapiens: A Brief History of Humankind",
+    "info": "Explores the history of humankind.",
+    "genres": ["History", "Philosophy", "Nonfiction"]
+  },
+  {
+    "author": "Yuval Noah Harari",
+    "title": "Homo Deus: A Brief History of Tomorrow",
+    "info": "Explores the future of humankind.",
+    "genres": ["Philosophy", "History", "Science"]
+  },
+  {
+    "author": "Stephen R. Covey",
+    "title": "The 7 Habits of Highly Effective People",
+    "info": "Powerful lessons in personal change.",
+    "genres": ["Self Help", "Psychology", "Business"]
+  },
+  {
+    "author": "J.K. Rowling",
+    "title": "Harry Potter and the Philosopher's Stone",
+    "info": "The first book in the Harry Potter series.",
+    "genres": ["Fantasy", "Young Adult", "Fiction"]
+  },
+  {
+    "author": "J.K. Rowling",
+    "title": "Harry Potter and the Chamber of Secrets",
+    "info": "The second book in the Harry Potter series.",
+    "genres": ["Fantasy", "Young Adult", "Fiction"]
+  },
+  {
+    "author": "J.K. Rowling",
+    "title": "Harry Potter and the Prisoner of Azkaban",
+    "info": "The third book in the Harry Potter series.",
+    "genres": ["Fantasy", "Young Adult", "Fiction"]
+  },
+  {
+    "author": "George R.R. Martin",
+    "title": "A Game of Thrones",
+    "info": "The first book in A Song of Ice and Fire.",
+    "genres": ["Fantasy", "Historical Fiction", "Thriller"]
+  },
+  {
+    "author": "George R.R. Martin",
+    "title": "A Clash of Kings",
+    "info": "The second book in A Song of Ice and Fire.",
+    "genres": ["Fantasy", "Historical Fiction", "Thriller"]
+  },
+  {
+    "author": "George R.R. Martin",
+    "title": "A Storm of Swords",
+    "info": "The third book in A Song of Ice and Fire.",
+    "genres": ["Fantasy", "Historical Fiction", "Thriller"]
+  },
+  {
+    "author": "Malcolm Gladwell",
+    "title": "Outliers: The Story of Success",
+    "info": "Explores the keys to success.",
+    "genres": ["Business", "Psychology", "Nonfiction"]
+  },
+  {
+    "author": "Malcolm Gladwell",
+    "title": "Blink: The Power of Thinking Without Thinking",
+    "info": "Discusses intuitive thinking.",
+    "genres": ["Psychology", "Philosophy", "Nonfiction"]
+  },
+  {
+    "author": "Malcolm Gladwell",
+    "title": "The Tipping Point",
+    "info": "How little things can make a big difference.",
+    "genres": ["Business", "Psychology", "Self Help"]
+  },
+  {
+    "author": "Dale Carnegie",
+    "title": "How to Win Friends and Influence People",
+    "info": "Timeless principles of interpersonal influence.",
+    "genres": ["Self Help", "Psychology", "Nonfiction"]
+  },
+  {
+    "author": "Napoleon Hill",
+    "title": "Think and Grow Rich",
+    "info": "A classic guide to personal success.",
+    "genres": ["Self Help", "Business", "Philosophy"]
+  }
+]

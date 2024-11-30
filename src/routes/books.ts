@@ -1,7 +1,7 @@
-import { books as table, authors } from '@/db/schema.js';
+import { books as table } from '@/db/schema.js';
 import { FastifyTypebox, SortOrder } from '@/types/index.js';
 import { Type } from '@sinclair/typebox';
-import { eq, asc, desc } from 'drizzle-orm';
+import { asc, desc } from 'drizzle-orm';
 
 const books = async (server: FastifyTypebox) => {
   server.get(
@@ -28,23 +28,40 @@ const books = async (server: FastifyTypebox) => {
       // eslint-disable-next-line unicorn/prevent-abbreviations
       const orderFn = sort_order === SortOrder.desc ? desc : asc;
 
-      const data = await server.db
-        .select({
-          id: table.id,
-          title: table.title,
-          info: table.info,
-          createdAt: table.createdAt,
-          updatedAt: table.updatedAt,
-          author: {
-            name: authors.name,
-            bio: authors.bio,
+      const data = await server.db.query.books.findMany({
+        columns: {
+          id: true,
+          title: true,
+          info: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+        with: {
+          genres: {
+            columns: {
+              bookId: true,
+              genreId: true,
+            },
+            with: {
+              genre: {
+                columns: {
+                  name: true,
+                  description: true,
+                },
+              },
+            },
           },
-        })
-        .from(table)
-        .fullJoin(authors, eq(authors.id, table.authorId))
-        .orderBy(orderFn(table[sort_by]))
-        .limit(limit)
-        .offset((page - 1) * limit);
+          author: {
+            columns: {
+              name: true,
+              bio: true,
+            },
+          },
+        },
+        orderBy: orderFn(table[sort_by]),
+        limit,
+        offset: (page - 1) * limit,
+      });
 
       return {
         data,

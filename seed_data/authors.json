@@ -1,0 +1,38 @@
+[
+  {
+    "name": "James Clear",
+    "bio": "Author of 'Atomic Habits' and expert in habit formation and productivity."
+  },
+  {
+    "name": "Eric Ries",
+    "bio": "Author of 'The Lean Startup' and advocate for continuous innovation in business."
+  },
+  {
+    "name": "Yuval Noah Harari",
+    "bio": "Historian and author of 'Sapiens' and 'Homo Deus,' exploring the history and future of humankind."
+  },
+  {
+    "name": "Stephen R. Covey",
+    "bio": "Author of 'The 7 Habits of Highly Effective People,' focusing on leadership and personal change."
+  },
+  {
+    "name": "J.K. Rowling",
+    "bio": "Author of the 'Harry Potter' series, one of the best-selling book franchises in history."
+  },
+  {
+    "name": "George R.R. Martin",
+    "bio": "Author of 'A Song of Ice and Fire,' the epic fantasy series adapted into 'Game of Thrones.'"
+  },
+  {
+    "name": "Malcolm Gladwell",
+    "bio": "Author of 'Outliers,' 'Blink,' and 'The Tipping Point,' known for his works on sociology and psychology."
+  },
+  {
+    "name": "Dale Carnegie",
+    "bio": "Author of 'How to Win Friends and Influence People,' a timeless classic on interpersonal skills."
+  },
+  {
+    "name": "Napoleon Hill",
+    "bio": "Author of 'Think and Grow Rich,' a foundational book on personal development and success."
+  }
+]
