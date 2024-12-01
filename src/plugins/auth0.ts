@@ -1,4 +1,4 @@
-import { Auth0Service } from '@/services/auth0-service.js';
+import { Auth0Service } from '@/services/auth0.service.js';
 import { FastifyPluginAsync } from 'fastify';
 import fastifyAuth0Verify from 'fastify-auth0-verify';
 import fp from 'fastify-plugin';

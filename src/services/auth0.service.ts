@@ -1,3 +1,5 @@
+import { RegisterFormSchema } from '@/schemas/auth.schema.js';
+import { Static } from '@sinclair/typebox';
 import { AuthenticationClient, UserInfoClient } from 'auth0';
 
 export class Auth0Service {
@@ -17,6 +19,16 @@ export class Auth0Service {
     });
 
     this.userInfoClient = new UserInfoClient({ domain: this.domain });
+  }
+
+  public async createUser(data: Static<typeof RegisterFormSchema>) {
+    return this.authenticationClient.database.signUp({
+      connection: 'Username-Password-Authentication',
+      name: data.name,
+      username: data.email,
+      email: data.email,
+      password: data.password,
+    });
   }
 
   public async authenticateUser(email: string, password: string) {

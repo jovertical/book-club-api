@@ -15,6 +15,7 @@ await reset(database, schema);
 await seed(database, { users: schema.users }).refine((fn) => ({
   users: {
     columns: {
+      id: fn.int({ minValue: 10000, maxValue: 20000, isUnique: true }),
       name: fn.fullName(),
       auth0Id: fn.string(),
     },
