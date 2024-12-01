@@ -14,7 +14,12 @@ await reset(database, schema);
 
 await seed(database, { users: schema.users }).refine((fn) => ({
   users: {
-    columns: { name: fn.fullName() },
+    columns: {
+      name: fn.fullName(),
+      password: fn.default({
+        defaultValue: '$2b$10$J5KPKXjXPCAeu3ZXTCWSH.D/0YS3f45jrZT1yHZAdRvAwTFxSAGeq' // 'password'
+      })
+    },
     count: 10,
   },
 }));

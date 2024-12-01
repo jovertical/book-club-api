@@ -43,6 +43,22 @@ components:
               statusCode:
                 type: number
                 example: 401
+    ForbiddenError:
+      description: Forbidden request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: invalid_grant
+              message:
+                type: string
+                example: Wrong email or password.
+              statusCode:
+                type: number
+                example: 403
   parameters:
     CollectionParams:
       page:
@@ -171,28 +187,41 @@ paths:
             schema:
               type: object
               required:
-                - username
+                - email
                 - password
               properties:
-                username:
+                email:
                   type: string
+                  example: john@example.com
                 password:
                   type: string
+                  example: password
       responses:
-        200:
+        201:
           description: Login successful
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  token:
-                    type: string
-                    example: mocked-jwt-token
+                  data:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: auth-bearer-token
+                      expires_in:
+                        type: number
+                        example: 3600
+                      token_type:
+                        type: string
+                        example: Bearer
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
           $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
   /books:
     get:
       summary: List all books

@@ -9,7 +9,7 @@ const books = async (server: FastifyTypebox) => {
   server.get(
     '/books',
     {
-      // onRequest: [server.authenticate],
+      onRequest: [server.authenticate],
       schema: {
         querystring: Type.Object({
           page: Type.Optional(Type.Number()),
