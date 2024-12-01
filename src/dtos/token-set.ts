@@ -1,6 +1,6 @@
 import { Expose, Exclude } from 'class-transformer';
 
-export class JwtDto {
+export class TokenSet {
   @Expose()
   access_token: string;
 

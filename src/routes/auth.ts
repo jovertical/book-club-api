@@ -1,5 +1,5 @@
 import { users } from '@/db/schema.js';
-import { JwtDto } from '@/dtos/jwt.js';
+import { TokenSet } from '@/dtos/token-set.js';
 import { UserDto } from '@/dtos/user.js';
 import { FastifyTypebox } from '@/types/index.js';
 import { Type } from '@sinclair/typebox';
@@ -24,16 +24,8 @@ const auth: FastifyPluginAsync = async (server: FastifyTypebox) => {
 
       const response = await server.auth0.authenticateUser(email, password);
 
-      if (response.isLeft()) {
-        return reply.status(response.value.status_code).send({
-          error: response.value.error,
-          message: response.value.error_description,
-          statusCode: response.value.status_code,
-        });
-      }
-
-      return reply.status(201).send({
-        data: plainToInstance(JwtDto, response.value, {
+      return reply.status(response.status).send({
+        data: plainToInstance(TokenSet, response.data, {
           excludeExtraneousValues: true,
         }),
       });
@@ -50,16 +42,8 @@ const auth: FastifyPluginAsync = async (server: FastifyTypebox) => {
         request.getBearerToken() ?? '',
       );
 
-      if (auth0User.isLeft()) {
-        return reply.status(auth0User.value.status_code).send({
-          error: auth0User.value.error,
-          message: auth0User.value.error_description,
-          statusCode: auth0User.value.status_code,
-        });
-      }
-
       const user = await server.db.query.users.findFirst({
-        where: eq(users.auth0Id, auth0User.value.sub),
+        where: eq(users.auth0Id, auth0User.data.sub),
       });
 
       if (user === null) {
