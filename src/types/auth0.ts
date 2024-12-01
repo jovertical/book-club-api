@@ -26,3 +26,13 @@ export interface Auth0Jwt {
   expires_in: number;
   token_type: string;
 }
+
+export interface Auth0UserInfo {
+  sub: string;
+  nickname: string;
+  name: string;
+  picture: string;
+  email: string;
+  email_verified: boolean;
+  updated_at: string;
+}

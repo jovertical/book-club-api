@@ -10,9 +10,9 @@ import {
 
 export const users = table('users', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  auth0Id: varchar('auth0_id', { length: 255 }).notNull(),
   name: varchar({ length: 255 }).notNull(),
   email: varchar({ length: 255 }).notNull(),
-  password: varchar({ length: 255 }).notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });

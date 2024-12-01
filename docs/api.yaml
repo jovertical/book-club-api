@@ -175,6 +175,7 @@ paths:
           $ref: '#/components/responses/BadRequestError'
         401:
           $ref: '#/components/responses/UnauthorizedError'
+
   /auth/login:
     post:
       summary: User login
@@ -222,6 +223,34 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         403:
           $ref: '#/components/responses/ForbiddenError'
+  /auth/me:
+    get:
+      summary: Get user info
+      description: Get user info
+      tags:
+        - Authentication
+      responses:
+        200:
+          description: User info is fetched
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      email:
+                        type: string
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
   /books:
     get:
       summary: List all books

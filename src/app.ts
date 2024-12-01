@@ -1,6 +1,7 @@
 import auth0Plugin from '@/plugins/auth0.js';
 import configPlugin from '@/plugins/config.js';
 import databasePlugin from '@/plugins/database.js';
+import requestUtilsPlugin from '@/plugins/request-utils.js';
 import swaggerPlugin from '@/plugins/swagger.js';
 import autoLoadPlugin from '@fastify/autoload';
 import corsPlugin from '@fastify/cors';
@@ -29,6 +30,7 @@ export const createApp = async (options: FastifyServerOptions) => {
   // Load plugins
   await app.register(configPlugin);
   await app.register(corsPlugin);
+  await app.register(requestUtilsPlugin);
   await app.register(auth0Plugin);
   await app.register(databasePlugin);
   await app.register(swaggerPlugin);

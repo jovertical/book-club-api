@@ -1,4 +1,8 @@
-import type { Auth0ResponseError, Auth0Jwt } from '@/types/auth0.js';
+import type {
+  Auth0ResponseError,
+  Auth0Jwt,
+  Auth0UserInfo,
+} from '@/types/auth0.js';
 import { Either, Left, Right } from '@/utils/either.js';
 
 export class Auth0Service {
@@ -6,21 +10,35 @@ export class Auth0Service {
     private readonly domain: string,
     private readonly clientId: string,
     private readonly clientSecret: string,
-    private readonly audience: string,
+    private readonly audience?: string,
   ) {}
 
   public async authenticateUser(email: string, password: string) {
     const response = await this.post('/oauth/token', {
-      client_id: this.clientId,
-      client_secret: this.clientSecret,
+      grant_type: 'password',
       username: email,
       password,
-      realm: 'Username-Password-Authentication',
+      scope: 'openid profile email offline_access',
+      client_id: this.clientId,
+      client_secret: this.clientSecret,
       audience: this.audience,
-      grant_type: 'http://auth0.com/oauth/grant-type/password-realm',
     });
 
     return this.parseApiResponse<Auth0Jwt>(response);
+  }
+
+  public async getUserInfo(accessToken: string) {
+    const response = await this.get(
+      '/userinfo',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+
+    return this.parseApiResponse<Auth0UserInfo>(response);
   }
 
   private async parseApiResponse<T>(
@@ -38,11 +56,38 @@ export class Auth0Service {
     return new Right(json as T);
   }
 
-  private post(url: string, body: Record<string, unknown>) {
+  private post(
+    url: string,
+    body: Record<string, unknown>,
+    options?: Omit<RequestInit, 'method' | 'body'>,
+  ) {
     return fetch(`https://${this.domain}${url}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(body),
+      ...options,
     });
+  }
+
+  private get(
+    url: string,
+    query: Record<string, string>,
+    options?: Omit<RequestInit, 'method'>,
+  ) {
+    return fetch(
+      `https://${this.domain}${url}?${new URLSearchParams(query).toString()}`,
+      {
+        method: 'GET',
+        ...options,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          ...options?.headers,
+        },
+      },
+    );
   }
 }
