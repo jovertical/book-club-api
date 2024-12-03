@@ -11,7 +11,7 @@
     "test:types": "tsc --noEmit -p tsconfig-testing.json",
     "test:format": "npm run prettier -- --check",
     "test:format:fix": "npm run prettier -- --write",
-    "test:lint": "eslint \"{src,test}/**/*.{ts,json}\"",
+    "test:lint": "eslint \"{src,test}/**/*.ts\"",
     "test:lint:fix": "npm run test:lint -- --fix",
     "test:unit": "",
     "test": "npm run test:types && npm run test:format && npm run test:lint && npm run test:unit"

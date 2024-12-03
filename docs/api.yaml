@@ -61,20 +61,19 @@ components:
                 example: 403
   parameters:
     CollectionParams:
-      page:
-        name: page
+      cursor:
+        name: cursor
         in: query
-        description: The page number to fetch
+        description: The cursor to fetch, typically the last item's id
         required: false
         schema:
           type: integer
           default: 1
-          minimum: 1
         example: 1
-      limit:
-        name: limit
+      size:
+        name: size
         in: query
-        description: The number of items per page
+        description: How many items to fetch
         required: false
         schema:
           type: integer
@@ -307,8 +306,8 @@ paths:
       tags:
         - Books
       parameters:
-        - $ref: '#/components/parameters/CollectionParams/page'
-        - $ref: '#/components/parameters/CollectionParams/limit'
+        - $ref: '#/components/parameters/CollectionParams/cursor'
+        - $ref: '#/components/parameters/CollectionParams/size'
         - $ref: '#/components/parameters/CollectionParams/sort_by'
         - $ref: '#/components/parameters/CollectionParams/sort_order'
       responses:
@@ -327,12 +326,13 @@ paths:
                   meta:
                     type: object
                     properties:
-                      page:
-                        type: number
-                      limit:
+                      size:
                         type: number
                       total:
                         type: number
+                      next:
+                        type: number
+                        required: false
         400:
           $ref: '#/components/responses/BadRequestError'
         401:

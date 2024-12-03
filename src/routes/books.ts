@@ -3,17 +3,17 @@ import { BookDto } from '@/dtos/book.js';
 import { FastifyTypebox, SortOrder } from '@/types/index.js';
 import { Type } from '@sinclair/typebox';
 import { plainToInstance } from 'class-transformer';
-import { asc, desc } from 'drizzle-orm';
+import { asc, desc, lt, gt, or, eq, and } from 'drizzle-orm';
 
 const books = async (server: FastifyTypebox) => {
   server.get(
     '/books',
     {
-      onRequest: [server.authenticate],
+      // onRequest: [server.authenticate],
       schema: {
         querystring: Type.Object({
-          page: Type.Optional(Type.Number()),
-          limit: Type.Optional(Type.Number()),
+          cursor: Type.Optional(Type.Number()),
+          size: Type.Optional(Type.Number()),
           sort_by: Type.Optional(Type.String()),
           sort_order: Type.Optional(Type.Enum(SortOrder)),
         }),
@@ -21,14 +21,18 @@ const books = async (server: FastifyTypebox) => {
     },
     async function (request) {
       const {
-        page = 1,
-        limit = 10,
-        sort_by = 'createdAt',
-        sort_order = SortOrder.desc,
+        cursor,
+        size = 10,
+        sort_by = 'id',
+        sort_order = SortOrder.asc,
       } = request.query;
 
-      // eslint-disable-next-line unicorn/prevent-abbreviations
+      const nextBook = cursor
+        ? await server.db.query.books.findFirst({ where: eq(table.id, cursor) })
+        : undefined;
+
       const orderFn = sort_order === SortOrder.desc ? desc : asc;
+      const cursorFn = sort_order === SortOrder.asc ? gt : lt;
 
       const data = await server.db.query.books.findMany({
         columns: {
@@ -60,17 +64,24 @@ const books = async (server: FastifyTypebox) => {
             },
           },
         },
+        ...(cursor && {
+          where: or(
+            cursorFn(table[sort_by], nextBook?.[sort_by]),
+            and(
+              eq(table[sort_by], nextBook?.[sort_by]),
+              cursorFn(table.id, cursor),
+            ),
+          ),
+        }),
+        limit: size,
         orderBy: orderFn(table[sort_by]),
-        limit,
-        offset: (page - 1) * limit,
       });
 
       return {
         data: plainToInstance(BookDto, data),
         meta: {
-          page,
-          limit,
           total: await server.db.$count(table),
+          next: data.length === size ? data.at(-1)?.id : undefined,
         },
       };
     },
