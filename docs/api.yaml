@@ -59,7 +59,33 @@ components:
               statusCode:
                 type: number
                 example: 403
+    NotFoundError:
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Not found
+              message:
+                type: string
+                example: No resource with id = 123
+              statusCode:
+                type: number
+                example: 404
+
   parameters:
+    WithRequiredParam:
+      id:
+        name: id
+        in: path
+        description: The id of the book to fetch
+        required: true
+        schema:
+          type: integer
+          example: 1
     CollectionParams:
       cursor:
         name: cursor
@@ -337,3 +363,159 @@ paths:
           $ref: '#/components/responses/BadRequestError'
         401:
           $ref: '#/components/responses/UnauthorizedError'
+
+    post:
+      summary: Create a new book
+      tags:
+        - Books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - authorId
+                - title
+                - info
+              properties:
+                authorId:
+                  type: integer
+                  example: 1
+                title:
+                  type: string
+                  example: The Great Gatsby
+                info:
+                  type: string
+                  example: A classic novel
+                genres:
+                  type: array
+                  items:
+                    type: integer
+                    example: 1
+      responses:
+        201:
+          description: Book stored successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      $ref: '#/components/schemas/Book'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+
+  /books/{id}:
+    get:
+      summary: Get a book
+      description: Fetch a particular book from the system
+      tags:
+        - Books
+      parameters:
+        - $ref: '#/components/parameters/WithRequiredParam/id'
+      responses:
+        200:
+          description: Book is fetched
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      $ref: '#/components/schemas/Book'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+    put:
+      summary: Update a book
+      description: Update a particular book from the system
+      tags:
+        - Books
+      parameters:
+        - $ref: '#/components/parameters/WithRequiredParam/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - authorId
+                - title
+                - info
+                - genres
+              properties:
+                authorId:
+                  type: integer
+                  example: 1
+                title:
+                  type: string
+                  example: The Great Gatsby
+                info:
+                  type: string
+                  example: A classic novel
+                genres:
+                  type: array
+                  items:
+                    type: integer
+                    example: 1
+      responses:
+        200:
+          description: Book is updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      $ref: '#/components/schemas/Book'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+    delete:
+      summary: Delete a book
+      description: Delete a book from the system
+      tags:
+        - Books
+      parameters:
+        - $ref: '#/components/parameters/WithRequiredParam/id'
+      responses:
+        200:
+          description: Book is deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Book deleted
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'

@@ -1,4 +1,4 @@
-import { RegisterFormSchema } from '@/schemas/auth.schema.js';
+import { RegisterFormSchema } from '@/schemas/auth.js';
 import { Static } from '@sinclair/typebox';
 import { AuthenticationClient, UserInfoClient } from 'auth0';
 

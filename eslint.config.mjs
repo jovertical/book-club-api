@@ -46,7 +46,7 @@ export default tseslint.config(
   {
     files: ['**/*.ts'],
     rules: {
-      'unicorn/prevent-abbreviations': 'warn',
+      'unicorn/prevent-abbreviations': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/no-floating-promises': 'off',

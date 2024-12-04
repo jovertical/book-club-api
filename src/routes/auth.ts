@@ -1,7 +1,7 @@
 import { users } from '@/db/schema.js';
 import { TokenSet } from '@/dtos/token-set.js';
 import { UserDto } from '@/dtos/user.js';
-import { LoginFormSchema, RegisterFormSchema } from '@/schemas/auth.schema.js';
+import { LoginFormSchema, RegisterFormSchema } from '@/schemas/auth.js';
 import { FastifyTypebox } from '@/types/index.js';
 import { plainToClass, plainToInstance } from 'class-transformer';
 import { eq } from 'drizzle-orm';

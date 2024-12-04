@@ -7,6 +7,7 @@ import autoLoadPlugin from '@fastify/autoload';
 import corsPlugin from '@fastify/cors';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import fastify, { FastifyServerOptions } from 'fastify';
+import httpErrorsEnhanced from 'fastify-http-errors-enhanced';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import 'reflect-metadata';
@@ -30,6 +31,7 @@ export const createApp = async (options: FastifyServerOptions) => {
   // Load plugins
   await app.register(configPlugin);
   await app.register(corsPlugin);
+  await app.register(httpErrorsEnhanced);
   await app.register(requestUtilsPlugin);
   await app.register(auth0Plugin);
   await app.register(databasePlugin);
@@ -38,6 +40,7 @@ export const createApp = async (options: FastifyServerOptions) => {
   // Autoload routes
   await app.register(autoLoadPlugin, {
     dir: path.join(__dirname, 'routes'),
+    ignoreFilter: (path) => path.startsWith('/handlers'),
   });
 
   await app.ready();
