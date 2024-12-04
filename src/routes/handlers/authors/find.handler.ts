@@ -1,7 +1,6 @@
-import { findBookQueryOptions } from '@/constants/index.js';
 import * as schema from '@/db/schema.js';
-import { BookDto } from '@/dtos/book.js';
-import { WithRequiredParamSchema } from '@/schemas/books.js';
+import { AuthorDto } from '@/dtos/author.js';
+import { WithRequiredParamSchema } from '@/schemas/authors.js';
 import { Static } from '@sinclair/typebox';
 import { plainToInstance } from 'class-transformer';
 import { eq } from 'drizzle-orm';
@@ -14,12 +13,11 @@ export const findHandler: RouteHandler<{
 
   const { id } = request.params;
 
-  await request.existsOrAbort(schema.books, 'id', id);
+  await request.existsOrAbort(schema.authors, 'id', id);
 
-  const book = await db.query.books.findFirst({
-    where: eq(schema.books.id, id),
-    ...findBookQueryOptions,
+  const author = await db.query.authors.findFirst({
+    where: eq(schema.authors.id, id),
   });
 
-  return { data: plainToInstance(BookDto, book) };
+  return { data: plainToInstance(AuthorDto, author) };
 };

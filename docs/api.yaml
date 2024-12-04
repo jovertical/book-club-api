@@ -81,7 +81,7 @@ components:
       id:
         name: id
         in: path
-        description: The id of the book to fetch
+        description: The id of the resource to fetch
         required: true
         schema:
           type: integer
@@ -324,6 +324,184 @@ paths:
           $ref: '#/components/responses/BadRequestError'
         401:
           $ref: '#/components/responses/UnauthorizedError'
+
+  # Authors
+  /authors:
+    get:
+      summary: List all authors
+      description: Fetch a list of authors from the system
+      tags:
+        - Books
+      parameters:
+        - $ref: '#/components/parameters/CollectionParams/cursor'
+        - $ref: '#/components/parameters/CollectionParams/size'
+        - $ref: '#/components/parameters/CollectionParams/sort_by'
+        - $ref: '#/components/parameters/CollectionParams/sort_order'
+      responses:
+        200:
+          description: A collection of author is fetched
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      $ref: '#/components/schemas/Author'
+                  meta:
+                    type: object
+                    properties:
+                      size:
+                        type: number
+                      total:
+                        type: number
+                      next:
+                        type: number
+                        required: false
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+    post:
+      summary: Create a new author
+      tags:
+        - Authors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  example: George R.R. Martin
+                bio:
+                  type: string
+                  example: Author of A Game of Thrones
+      responses:
+        201:
+          description: Author stored successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      $ref: '#/components/schemas/Author'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+
+  /authors/{id}:
+    get:
+      summary: Find an author
+      description: Fetch a particular author from the system
+      tags:
+        - Authors
+      parameters:
+        - $ref: '#/components/parameters/WithRequiredParam/id'
+      responses:
+        200:
+          description: Author is fetched
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      $ref: '#/components/schemas/Author'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+    put:
+      summary: Update an author
+      description: Update a particular author from the system
+      tags:
+        - Authors
+      parameters:
+        - $ref: '#/components/parameters/WithRequiredParam/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - bio
+              properties:
+                name:
+                  type: string
+                  example: George R.R. Martin
+                info:
+                  type: string
+                  example: Author of ASOIAF
+      responses:
+        200:
+          description: Author is updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      $ref: '#/components/schemas/Book'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+    delete:
+      summary: Delete an author
+      description: Books by this author will also be deleted
+      tags:
+        - Authors
+      parameters:
+        - $ref: '#/components/parameters/WithRequiredParam/id'
+      responses:
+        200:
+          description: Author is deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Author deleted
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+
+  # Books
 
   /books:
     get:

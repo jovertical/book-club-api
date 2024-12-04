@@ -29,3 +29,13 @@ export const findBookQueryOptions = {
     },
   },
 } as const;
+
+export const findAuthorQueryOptions = {
+  columns: {
+    id: true,
+    name: true,
+    bio: true,
+    createdAt: true,
+    updatedAt: true,
+  },
+} as const;

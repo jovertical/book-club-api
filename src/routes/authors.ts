@@ -1,16 +1,16 @@
-import * as handlers from '@/routes/handlers/books/index.js';
+import * as handlers from '@/routes/handlers/authors/index.js';
 import {
-  CreateBookFormSchema,
+  CreateAuthorFormSchema,
   WithRequiredParamSchema,
-  UpdateBookFormSchema,
-} from '@/schemas/books.js';
+  UpdateAuthorFormSchema,
+} from '@/schemas/authors.js';
 import { ResourceCollectionQuerySchema } from '@/schemas/common.js';
 import { FastifyTypebox } from '@/types/index.js';
 
-const books = async (server: FastifyTypebox) => {
+const authors = async (server: FastifyTypebox) => {
   server.route({
     method: 'GET',
-    url: '/books',
+    url: '/authors',
     schema: { querystring: ResourceCollectionQuerySchema },
     preHandler: [server.authenticate],
     handler: handlers.getHandler,
@@ -18,15 +18,15 @@ const books = async (server: FastifyTypebox) => {
 
   server.route({
     method: 'POST',
-    url: '/books',
-    schema: { body: CreateBookFormSchema },
+    url: '/authors',
+    schema: { body: CreateAuthorFormSchema },
     preHandler: [server.authenticate],
     handler: handlers.createHandler,
   });
 
   server.route({
     method: 'GET',
-    url: '/books/:id',
+    url: '/authors/:id',
     schema: { params: WithRequiredParamSchema },
     preHandler: [server.authenticate],
     handler: handlers.findHandler,
@@ -34,19 +34,19 @@ const books = async (server: FastifyTypebox) => {
 
   server.route({
     method: 'PUT',
-    url: '/books/:id',
-    schema: { params: WithRequiredParamSchema, body: UpdateBookFormSchema },
+    url: '/authors/:id',
+    schema: { params: WithRequiredParamSchema, body: UpdateAuthorFormSchema },
     preHandler: [server.authenticate],
     handler: handlers.updateHandler,
   });
 
   server.route({
     method: 'DELETE',
-    url: '/books/:id',
+    url: '/authors/:id',
     schema: { params: WithRequiredParamSchema },
     preHandler: [server.authenticate],
     handler: handlers.deleteHandler,
   });
 };
 
-export default books;
+export default authors;
